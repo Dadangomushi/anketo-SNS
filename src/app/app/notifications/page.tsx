@@ -1,0 +1,1 @@
+export default function Noti(){return <div>通知（MVPではダミー）</div>}
