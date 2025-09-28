@@ -10,20 +10,20 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "clsx": "2.1.1",
+    "cookie": "0.6.0",
+    "nanoid": "5.0.7",
     "next": "14.2.5",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "zod": "3.23.8",
-    "nanoid": "5.0.7",
-    "cookie": "0.6.0",
-    "clsx": "2.1.1"
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@types/node": "20.12.12",
     "@types/react": "18.2.66",
     "@types/react-dom": "18.2.22",
     "autoprefixer": "10.4.19",
-    "eslint": "9.10.0",
+    "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
     "playwright": "1.47.2",
     "postcss": "8.4.38",
