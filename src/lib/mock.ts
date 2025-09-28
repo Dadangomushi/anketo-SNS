@@ -12,26 +12,37 @@ function seed() {
   const now = new Date();
   const mk = (body: string, mins: number) => {
     const id = nanoid(10);
-    const created = new Date(now.getTime() - mins*60000).toISOString();
+    const created = new Date(now.getTime() - mins * 60000).toISOString();
     const closesAt = new Date(now.getTime() + (120 - mins) * 60000).toISOString();
+
+    // ① options を先に作って…
+    const options = [
+      { id: nanoid(8), label: "和食",   votes: Math.floor(Math.random() * 100) },
+      { id: nanoid(8), label: "洋食",   votes: Math.floor(Math.random() * 100) },
+      { id: nanoid(8), label: "中華",   votes: Math.floor(Math.random() * 100) },
+      { id: nanoid(8), label: "その他", votes: Math.floor(Math.random() * 100) },
+    ];
+
+    // ② 合計を数値で保持（getterを使わない）
+    const totalVotes = options.reduce((a, o) => a + o.votes, 0);
+
+    // ③ Poll を返す
     return {
-      id, authorHandle: "mika", body, visibility: "public" as const,
-      closesAt, createdAt: created,
-      options: [
-        { id: nanoid(8), label: "和食", votes: Math.floor(Math.random()*100) },
-        { id: nanoid(8), label: "洋食", votes: Math.floor(Math.random()*100) },
-        { id: nanoid(8), label: "中華", votes: Math.floor(Math.random()*100) },
-        { id: nanoid(8), label: "その他", votes: Math.floor(Math.random()*100) },
-      ],
-      get totalVotes() { return this.options.reduce((a,o)=>a+o.votes,0); }
-    } as unknown as Poll;
+      id,
+      authorHandle: "mika",
+      body,
+      visibility: "public" as const,
+      closesAt,
+      createdAt: created,
+      options,
+      totalVotes,
+    } as Poll;
   };
+
   const a = mk("明日のランチ、何がいい？", 5);
   const b = mk("休日はどう過ごす？", 60);
   const c = mk("推しの新曲、どうだった？", 30);
-  store.polls.push(a,b,c);
-  // Fix getter to value
-  store.polls = store.polls.map(p => ({...p, totalVotes: p.options.reduce((a,o)=>a+o.votes,0)}));
+  store.polls.push(a, b, c);
 }
 seed();
 
